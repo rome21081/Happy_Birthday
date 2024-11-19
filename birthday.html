@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday</title>
+  <style>
+    /* General body and layout */
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f8f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* Card-style central message */
+    #centerMessageSection {
+      background: #fff;
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15); /* Shadow for the card */
+      border: 2px solid #ffcc00; /* Yellow border */
+      transition: transform 0.3s ease;
+    }
+
+    #centerMessageSection:hover {
+      transform: scale(1.05); /* Slight zoom effect when hovered */
+    }
+
+    /* Heading style */
+    #centerMessageSection h1 {
+      font-size: 2.5em;
+      color: #333;
+      margin-bottom: 15px;
+      font-family: 'Comic Sans MS', cursive, sans-serif; /* Fun font for birthday theme */
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* Paragraph style */
+    #centerMessageSection p {
+      font-size: 1.2em;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Button style */
+    #centerMessageSection button {
+      background-color: #ffcc00;
+      color: white;
+      font-size: 1.2em;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #centerMessageSection button:hover {
+      background-color: #ffb300;
+    }
+
+    /* Styling for the trail images */
+    .trail {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+      animation: flash 3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards, pulse 2s infinite, teeter 1.5s infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      transition: transform 0.2s ease-in-out;
+      box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2); /* Polaroid shadow effect */
+      border-radius: 10px; /* Soft round corners */
+    }
+
+    /* Keyframes for the flashing animation */
+    @keyframes flash {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+    }
+
+    /* Pulse effect */
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Teeter effect */
+    @keyframes teeter {
+      0% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(-5deg);
+      }
+      50% {
+        transform: rotate(5deg);
+      }
+      75% {
+        transform: rotate(-5deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+
+    /* Hover effect */
+    .trail:hover {
+      transform: scale(1.1) translateX(-10px);
+    }
+
+    .trail:hover {
+      transform: scale(1.1) translateX(10px);
+    }
+
+    /* Styling for the images */
+    .trail img {
+      border: 10px solid white; /* Adds a white Polaroid-style border */
+      box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3); /* Shadow around the image */
+      width: auto; /* Adjusts based on the image's natural size */
+      height: auto; /* Adjusts based on the image's natural size */
+      max-width: 200px; /* Optional: Add a limit to max width if desired */
+      max-height: 200px; /* Optional: Add a limit to max height if desired */
+    }
+    * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #030303;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Music player container */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffffff;
+            color: rgb(43, 43, 43);
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(250, 250, 250, 0.3);
+            display: flex;
+            align-items: center;
+            width: 320px;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .play-btn, .next-btn, .prev-btn {
+            background-color: #ffffff;
+            border: none;
+            color: rgb(0, 0, 0);
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .play-btn:hover, .next-btn:hover, .prev-btn:hover {
+            background-color: #ffffff;
+        }
+
+        .track-info {
+            font-size: 14px;
+            color: #303030;
+            margin-right: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .track-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .track-singer {
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #444;
+            border-radius: 10px;
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+        }
+
+        .progress-bar-inner {
+            height: 100%;
+            background-color: #ff5733;
+            width: 0;
+        }
+
+        .music-player:hover {
+            opacity: 0.8;
+        }
+
+        /* YouTube player container */
+        #yt-player {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;  /* Keep behind the music player controls */
+        }
+/* Title message styling */
+.title-message {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+  background: rgba(255, 255, 255, 0.8); /* Light transparent background */
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  text-align: center;
+  animation: fadeIn 1.5s ease-out;
+}
+
+/* Fade-in effect for the title */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) translateX(-50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateX(-50%);
+  }
+}
+/* Smooth transition for text content */
+.title-message {
+  transition: all 0.5s ease-in-out;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="title-message" id="titleMessage">
+    Move the mouse cursor while the video is playing for a better experience!
+  </div>
+  
+  
+<div class="music-player">
+  <div class="track-info">
+      <div class="track-title">Palagi</div>
+      <div class="track-singer">Tjxkz</div>
+  </div>
+  <div class="player-controls">
+      <button class="prev-btn">⏪</button>
+      <button class="play-btn">▶️</button>
+      <button class="next-btn">⏩</button>
+  </div>
+  <div>
+      <div class="progress-bar">
+          <div class="progress-bar-inner"></div>
+      </div>
+  </div>
+</div>
+
+<!-- YouTube player container -->
+<div id="yt-player"></div>
+<script>
+   // Playlist with YouTube links
+const playlist = [
+    { title: "Palagi", singer: "Tj x kz", url: "https://www.youtube.com/watch?v=QWI8jIWV_vA"},
+    { title: "Cownpession", singer: "The Pogi One", url: "https://youtu.be/fE3DSzTmEOU" }
+];
+
+// Get DOM elements for control buttons
+const playBtn = document.querySelector('.play-btn');
+const prevBtn = document.querySelector('.prev-btn');
+const nextBtn = document.querySelector('.next-btn');
+const trackTitle = document.querySelector('.track-title');
+const trackSinger = document.querySelector('.track-singer');
+const progressBarInner = document.querySelector('.progress-bar-inner');
+
+// Initialize YouTube Iframe API script
+const script = document.createElement('script');
+script.src = "https://www.youtube.com/iframe_api";
+script.onload = () => onYouTubeIframeAPIReady(); // Call the API-ready function once the script is loaded
+document.body.appendChild(script);
+
+let currentSongIndex = 0; // Start with the first song
+let ytPlayer;
+
+// Helper function to extract video ID from URL
+function getVideoIdFromUrl(url) {
+    const urlObj = new URL(url);
+    return urlObj.pathname.split('/').pop(); // Extract the video ID
+}
+
+// YouTube Iframe API callback to initialize the player
+function onYouTubeIframeAPIReady() {
+    ytPlayer = new YT.Player('yt-player', {
+        videoId: getVideoIdFromUrl(playlist[currentSongIndex].url), // Set first video in playlist
+        width: '1280',
+        height: '720',
+        playerVars: {
+            autoplay: 1, // Enable autoplay
+            mute: 1,     // Start muted to comply with browser policies
+            controls: 1, // Show player controls
+        },
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
+}
+
+// Unmute and play the video once it's ready
+function onPlayerReady(event) {
+    ytPlayer.unMute(); // Unmute the video after it starts playing
+    ytPlayer.playVideo(); // Ensure the video starts playing
+}
+
+
+
+// YouTube Player state change handler
+function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.ENDED) {
+        // Handle end of video logic here
+        console.log("Video has ended.");
+    }
+}
+
+    // Extract YouTube video ID from URL
+    function getVideoIdFromUrl(url) {
+        const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/]+\/[^\/]+\/|(?:v|e(?:mbed)?)\/|\S+[\?&]v=)|youtu\.be\/)([\w\-]{11})/;
+        const match = url.match(regex);
+        return match ? match[1] : null;
+    }
+
+    // Update song information (title and singer)
+    function updateSongInfo() {
+        trackTitle.textContent = playlist[currentSongIndex].title;
+        trackSinger.textContent = playlist[currentSongIndex].singer;
+    }
+
+    // Handle play/pause button action
+    playBtn.addEventListener('click', () => {
+        if (ytPlayer.getPlayerState() === YT.PlayerState.PAUSED) {
+            ytPlayer.playVideo(); // Play video if paused
+        } else {
+            ytPlayer.pauseVideo(); // Pause video if playing
+        }
+    });
+
+    // Handle previous song button action
+    prevBtn.addEventListener('click', () => {
+        currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+        ytPlayer.loadVideoById(getVideoIdFromUrl(playlist[currentSongIndex].url));
+        updateSongInfo();
+    });
+
+    // Handle next song button action
+    nextBtn.addEventListener('click', () => {
+        currentSongIndex = (currentSongIndex + 1) % playlist.length;
+        ytPlayer.loadVideoById(getVideoIdFromUrl(playlist[currentSongIndex].url));
+        updateSongInfo();
+    });
+
+    // Update progress bar as the song plays
+    setInterval(() => {
+        if (ytPlayer && ytPlayer.getCurrentTime) {
+            const currentTime = ytPlayer.getCurrentTime();
+            const duration = ytPlayer.getDuration();
+            const progress = (currentTime / duration) * 100;
+            progressBarInner.style.width = progress + '%';
+        }
+    }, 500);
+
+    // Update song details and player on state change
+    function onPlayerStateChange(event) {
+        if (event.data === YT.PlayerState.PLAYING) {
+            playBtn.textContent = "⏸️"; // Change to pause icon
+        } else {
+            playBtn.textContent = "▶️"; // Change to play icon
+        }
+    }
+
+    // Array of cat image URLs for the trail effect
+    const images = [
+      'https://i.pinimg.com/1200x/70/36/d0/7036d03cc05916f8e6e477fea0689da4.jpg',   //  image 1
+      'https://i.pinimg.com/736x/cf/d3/b6/cfd3b6c9f3e5136e3eb99c5c023305f2.jpg',   //  image 2
+      'https://i.pinimg.com/474x/d8/0a/b4/d80ab41948c37ef57f68d46913a9f895.jpg',   //  image 3
+      'https://i.pinimg.com/474x/a0/88/64/a08864477cb864d73a51e31a870b8992.jpg',   //  image 4
+      'https://i.pinimg.com/736x/66/f1/f9/66f1f9af0c2e99daff3082b81a69fe8e.jpg',
+      'https://i.pinimg.com/474x/21/1b/e7/211be75243c1af501b656773feca909a.jpg',
+      'https://i.pinimg.com/474x/ce/2e/df/ce2edf517e0e8a248d924b3ceee54ec9.jpg',
+      'https://i.pinimg.com/474x/96/df/26/96df26d4af7286fe32869f1b7254f288.jpg',   //  image 1
+      'https://i.pinimg.com/474x/95/73/dc/9573dca8b688534e82d2ff28c0b44dc2.jpg',   //  image 2
+      'https://i.pinimg.com/474x/4e/21/a6/4e21a68386c2bf12a4ffabf25986db5e.jpg',   //  image 3
+      'https://i.pinimg.com/474x/24/17/46/241746276cc2b92499e665e893e4892e.jpg',   //  image 4
+      'https://i.pinimg.com/474x/5a/b8/7c/5ab87c897bfc4c3004bd49b4eb3f848b.jpg',
+      'https://i.pinimg.com/736x/b6/13/5b/b6135baf5f7c60938b3a258c642d24c3.jpg',
+      'https://i.pinimg.com/474x/43/d1/02/43d10202ad869cc175daa547df0e1345.jpg',
+      'https://i.pinimg.com/736x/78/fc/4c/78fc4cdcbc815725a1e8b5cc1c76f59e.jpg',   //  image 1
+      'https://i.pinimg.com/474x/2f/b5/2c/2fb52c48eaba0f3794e75a27fe4aaee8.jpg',   //  image 2
+      'https://i.pinimg.com/736x/56/57/55/565755baffc03472e04f77ef4e5db035.jpg',   //  image 3
+      'https://i.pinimg.com/474x/72/b2/9c/72b29c4a13b49b10c108421bd537b58d.jpg',   //  image 4
+      'https://i.pinimg.com/474x/fe/cd/fb/fecdfbab1ee362ce2df5b9621c043731.jpg',
+      'https://i.pinimg.com/474x/f6/5f/f1/f65ff16a2cac8eeb9ffcad73f4011360.jpg',
+      'https://i.pinimg.com/736x/50/c2/e1/50c2e1cbdea764c58ed4ac33bf6fd656.jpg',
+      'https://i.pinimg.com/474x/4e/c4/6c/4ec46c709deb3999cf3cf433bc826b8b.jpg',
+      'https://i.pinimg.com/736x/0c/c2/e1/0cc2e15d0de156e193cd24ae7eeb8d33.jpg',
+      'https://i.pinimg.com/474x/8a/8c/8c/8a8c8ce9b934e94d6c979bd02878cab3.jpg',
+      'https://i.pinimg.com/474x/c8/8e/cf/c88ecffc99863796930a05a85cc7fdaa.jpg',
+    ];
+
+    // Mouse move event to create the trail effect
+    let lastImageTime = 0;
+    const spacingDelay = 200;
+
+    document.addEventListener('mousemove', (event) => {
+      const currentTime = Date.now();
+      if (currentTime - lastImageTime < spacingDelay) return;
+      lastImageTime = currentTime;
+
+      const trailDiv = document.createElement('div');
+      trailDiv.classList.add('trail');
+
+      const trailImage = document.createElement('img');
+      trailImage.src = images[Math.floor(Math.random() * images.length)];
+
+      trailDiv.appendChild(trailImage);
+
+      trailDiv.style.left = `${event.pageX}px`;
+      trailDiv.style.top = `${event.pageY}px`;
+
+      document.body.appendChild(trailDiv);
+
+      trailDiv.addEventListener('animationend', () => {
+        trailDiv.remove();
+      });
+    });
+
+    // Change the title message after 1 minute
+setTimeout(() => {
+  const titleMessage = document.getElementById('titleMessage');
+  if (titleMessage) {
+    titleMessage.textContent = "Enjoy the movie experience, Happy Birthday Love!";
+  }
+}, 60000); // 60000ms = 1 minute
+
+  </script>
+
+</body>
+</html>
