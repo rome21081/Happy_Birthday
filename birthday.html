@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Happy Birthday</title>
   <style>
     /* General body and layout */
@@ -19,134 +19,116 @@
       position: relative;
     }
 
-    /* Card-style central message */
-    #centerMessageSection {
-      background: #fff;
-      border-radius: 15px;
-      padding: 30px;
-      max-width: 600px;
-      width: 90%;
-      text-align: center;
-      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15); /* Shadow for the card */
-      border: 2px solid #ffcc00; /* Yellow border */
-      transition: transform 0.3s ease;
-    }
+ /* Styling for the trail images */
+.trail {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  animation: flash 3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards, pulse 2s infinite, teeter 1.5s infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2); /* Polaroid shadow effect */
+  border-radius: 10px; /* Soft round corners */
+}
 
-    #centerMessageSection:hover {
-      transform: scale(1.05); /* Slight zoom effect when hovered */
-    }
+/* Keyframes for the flashing animation */
+@keyframes flash {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
 
-    /* Heading style */
-    #centerMessageSection h1 {
-      font-size: 2.5em;
-      color: #333;
-      margin-bottom: 15px;
-      font-family: 'Comic Sans MS', cursive, sans-serif; /* Fun font for birthday theme */
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
+/* Pulse effect */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
-    /* Paragraph style */
-    #centerMessageSection p {
-      font-size: 1.2em;
-      color: #555;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
+/* Teeter effect */
+@keyframes teeter {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
 
-    /* Button style */
-    #centerMessageSection button {
-      background-color: #ffcc00;
-      color: white;
-      font-size: 1.2em;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+/* Hover effect */
+.trail:hover {
+  transform: scale(1.1) translateX(-10px);
+}
 
-    #centerMessageSection button:hover {
-      background-color: #ffb300;
-    }
+.trail:hover {
+  transform: scale(1.1) translateX(10px);
+}
 
-    /* Styling for the trail images */
-    .trail {
-      position: absolute;
-      pointer-events: none;
-      opacity: 0;
-      animation: flash 3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards, pulse 2s infinite, teeter 1.5s infinite;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      transition: transform 0.2s ease-in-out;
-      box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2); /* Polaroid shadow effect */
-      border-radius: 10px; /* Soft round corners */
-    }
+/* Styling for the images */
+.trail img {
+  border: 10px solid white; /* Adds a white Polaroid-style border */
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3); /* Shadow around the image */
+  width: 100%; /* Makes the image width flexible */
+  height: auto; /* Keeps the aspect ratio */
+  max-width: 200px; /* Limit the max width */
+  max-height: 200px; /* Limit the max height */
+}
 
-    /* Keyframes for the flashing animation */
-    @keyframes flash {
-      0% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-    }
+/* Make the trail container responsive */
+@media (max-width: 768px) {
+  .trail {
+    max-width: 180px; /* Resize the trail container on smaller screens */
+  }
 
-    /* Pulse effect */
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.1);
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
+  .trail img {
+    max-width: 150px; /* Adjust image max-width for smaller screens */
+  }
+}
 
-    /* Teeter effect */
-    @keyframes teeter {
-      0% {
-        transform: rotate(0deg);
-      }
-      25% {
-        transform: rotate(-5deg);
-      }
-      50% {
-        transform: rotate(5deg);
-      }
-      75% {
-        transform: rotate(-5deg);
-      }
-      100% {
-        transform: rotate(0deg);
-      }
-    }
+@media (max-width: 480px) {
+  .trail {
+    max-width: 150px; /* Resize the trail container even further for mobile screens */
+  }
 
-    /* Hover effect */
-    .trail:hover {
-      transform: scale(1.1) translateX(-10px);
-    }
+  .trail img {
+    max-width: 120px; /* Adjust image max-width for smaller mobile screens */
+  }
+}
 
-    .trail:hover {
-      transform: scale(1.1) translateX(10px);
-    }
+/* Ensure images scale well on very small screens */
+@media (max-width: 320px) {
+  .trail {
+    max-width: 100px;
+  }
 
-    /* Styling for the images */
-    .trail img {
-      border: 10px solid white; /* Adds a white Polaroid-style border */
-      box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3); /* Shadow around the image */
-      width: auto; /* Adjusts based on the image's natural size */
-      height: auto; /* Adjusts based on the image's natural size */
-      max-width: 200px; /* Optional: Add a limit to max width if desired */
-      max-height: 200px; /* Optional: Add a limit to max height if desired */
-    }
+  .trail img {
+    max-width: 100px; /* Smallest size for images */
+  }
+}
+
     * {
             margin: 0;
             padding: 0;
@@ -237,26 +219,62 @@
         .music-player:hover {
             opacity: 0.8;
         }
+    /* YouTube player container */
+    #yt-player {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1; /* Keep behind the music player controls */
+      width: 100%; /* Make it responsive */
+      max-width: 1280px; /* Limit the max width */
+      height: 70%; /* Maintain aspect ratio */
+    }
 
-        /* YouTube player container */
-        #yt-player {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: -1;  /* Keep behind the music player controls */
-        }
+    /* Ensure images scale well on very small screens */
+    @media (max-width: 768px) {
+      .music-player {
+        width: 90%; /* Adjust music player width for smaller screens */
+      }
+
+      .track-info {
+        font-size: 12px; /* Smaller font size for track info */
+      }
+
+      .play-btn, .next-btn, .prev-btn {
+        padding: 6px; /* Smaller buttons on mobile */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .title-message {
+        font-size: 1.2em; /* Adjust title font size */
+      }
+
+      .music-player {
+        width: 95%; /* Adjust for mobile screens */
+      }
+
+      .track-info {
+        font-size: 12px;
+      }
+
+      .play-btn, .next-btn, .prev-btn {
+        padding: 5px;
+      }
+    }
+
 /* Title message styling */
 .title-message {
   position: absolute;
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 1.5em;
+  font-size: 1.5vw; /* Adjusts based on viewport width */
   font-weight: bold;
   color: #333;
   background: rgba(255, 255, 255, 0.8); /* Light transparent background */
-  padding: 10px 20px;
+  padding: 2vh 5vw; /* Adjust padding based on viewport size */
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
   z-index: 100;
@@ -275,17 +293,51 @@
     transform: translateY(0) translateX(-50%);
   }
 }
+
 /* Smooth transition for text content */
 .title-message {
   transition: all 0.5s ease-in-out;
 }
+
+/* Media query adjustments for smaller screens */
+@media (max-width: 768px) {
+  .title-message {
+    font-size: 4vw; /* Increase font size relative to smaller screens */
+    padding: 1.5vh 2vw;
+    max-width: 100vw;
+    box-sizing: border-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical; /* Required for line-clamp */
+    text-align: center;
+    word-wrap: break-word;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-message { 
+    font-size: 4vw; /* Responsive font size */
+    padding: 2vh 5vw; /* Add some padding for spacing */
+    width: 70%; /* Set the width to 70% of the website width */
+    max-width: 80%; /* Ensure it doesn't exceed 80% of the website width */
+    margin: 0 auto; /* Center the element horizontally */
+    box-sizing: border-box; /* Include padding in width calculation */
+    text-align: center; /* Center-align the text */
+    line-height: 1.4; /* Improve readability with line spacing */
+    overflow-wrap: break-word; /* Break long words gracefully */
+    word-wrap: break-word; /* Support for older browsers */
+}
+
+
+
+}
+
 
   </style>
 </head>
 <body>
 
   <div class="title-message" id="titleMessage">
-    Move the mouse cursor while the video is playing for a better experience!
+    Move the mouse cursor / tap on the blank spaces while the video is playing for a better experience!
   </div>
   
   
